@@ -19,7 +19,7 @@ module.exports = {
         })
         .then((user) => {
             const msg = {
-                to: newUser.email,
+                to: user.email,
                 from: 'donotreply@example.com',
                 subject: 'Blocipedia Account Confirmation',
                 text: 'Succcess! Your Blocipedia account has been created.',
