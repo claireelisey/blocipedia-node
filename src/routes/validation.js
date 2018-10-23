@@ -25,7 +25,7 @@ module.exports = {
 
 
 
-    /* validateUsersSignIn(req, res, next) {
+    validateUsersSignIn(req, res, next) {
 
         if(req.method === "POST") {
 
@@ -43,7 +43,7 @@ module.exports = {
             return next();
         }
 
-    }, */
+    }
     
 
 }
