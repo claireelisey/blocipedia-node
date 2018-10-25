@@ -1,10 +1,12 @@
 const wikiQueries = require("../db/queries.wikis.js");
 
 module.exports = {
+    
     index(req, res, next){
         
         wikiQueries.getAllWikis((err, wikis) => {
             if(err){
+                console.log(err);
                 res.redirect(500, "static/index");
             } else {
                 res.render("wikis/index", {wikis});
@@ -20,7 +22,7 @@ module.exports = {
     create(req, res, next){
         let newWiki = {
             title: req.body.title,
-            description: req.body.description
+            body: req.body.body
         };
         wikiQueries.addWiki(newWiki, (err, wiki) => {
             if(err){
