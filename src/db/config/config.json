@@ -18,11 +18,11 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "claire",
+    "username": "root",
     "password": null,
-    "database": "blocipedia",
+    "database": "database_production",
     "host": "127.0.0.1",
-    "dialect": "postgres",
+    "dialect": "mysql",
     "logging": false,
     "operatorsAliases": false,
     "use_env_variable": "DATABASE_URL"
