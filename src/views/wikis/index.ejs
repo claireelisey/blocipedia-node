@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <% include ../static/partials/head.ejs %>
     </head>
+
     <body>
+
         <main class="container">
+
             <% include ../static/partials/navbar.ejs %>
+
+            <% include ../static/partials/messages.ejs %>
 
             <h1>Wikis</h1>
 
+            <% if(currentUser) { %>
+                <a href="/wikis/new" class="btn btn-success">New Wiki</a>
+            <% } %>
+
             <ul class="list-group">
-                <!-- #1 -->
                 <% wikis.forEach((wiki) => { %>
-                <!-- #2 -->
                     <li class="list-group-item">
                     <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
                     </li>
@@ -20,5 +28,7 @@
             </ul>
 
         </main>
+        
     </body>
+
 </html>
