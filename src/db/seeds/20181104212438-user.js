@@ -2,18 +2,32 @@
 
 const faker = require("faker");
 
-let users = [];
-
-for(let i = 1 ; i <= 15 ; i++){
-    users.push({
-        username: faker.hacker.noun(),
-        email: faker.internet.email(),
-        password: faker.hacker.noun(),
+let users = [
+    {
+        username: "danielle",
+        email: "danielle@gmail.com",
+        password: "Test1234",
         role: "standard",
         createdAt: new Date(),
         updatedAt: new Date()
-    });
-}
+    },
+    {
+        username: "matthew",
+        email: "matthew@gmail.com",
+        password: "Test4567",
+        role: "standard",
+        createdAt: new Date(),
+        updatedAt: new Date()
+    },
+    {
+        username: "emmyjane",
+        email: "emmy@gmail.com",
+        password: "Test8910",
+        role: "standard",
+        createdAt: new Date(),
+        updatedAt: new Date()
+    }
+];
 
 module.exports = {
 
