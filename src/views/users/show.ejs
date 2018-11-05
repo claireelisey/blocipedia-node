@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <% include ../static/partials/head.ejs %>
+    </head>
+
+    <body>
+
+        <% include ../static/partials/navbar.ejs %>
+        
+        <main class="container">
+
+            <% include ../static/partials/messages.ejs %>
+
+            <h1><%= `${user.username}'s profile` %></h1>
+
+            <h3>Your account status is:
+                <%= user.role %>
+            </h3>
+
+            <!-- If currentUser == "standard" -->
+            <% if(currentUser && currentUser.isStandard()) { %>
+            <a href="/users/<%= user.id %>/upgrade" class="btn btn-warning">Upgrade to Premium</a>
+            <% } %>
+
+            <!-- If currentUser == "premium" -->
+            <% if(currentUser && currentUser.isPremium()) { %>
+            <a href="/users/<%= user.id %>/downgrade" class="btn btn-warning">Downgrade to Standard</a>
+            <% } %>
+            
+        </main>
+
+        <% include ../static/partials/baseScripts.ejs %>
+
+    </body>
+
+</html>

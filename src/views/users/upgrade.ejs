@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <% include ../static/partials/head.ejs %>
+    </head>
+
+    <body>
+
+        <% include ../static/partials/navbar.ejs %>
+
+        <main class="container">
+
+            <% include ../static/partials/messages.ejs %>
+
+            <h1><%= `${user.username}'s profile` %></h1>
+
+            <h3>Your current account status is
+                <%= user.role %>
+            </h3>
+
+            <h4>Upgrade today!</h4>
+
+            <p>The cost to become a Premium Member is only $15!</p>
+            
+            <form action="/users/<%=user.id %>/upgrade" method="POST">
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_QA28K2pkhJ0KQnGljF5tsKD2"
+                    data-amount="1500" data-name="Blocipedia" data-description="Example charge" data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto">
+                </script>
+            </form>
+
+        </main>
+
+        <% include ../static/partials/baseScripts.ejs %>
+
+    </body>
+
+</html>
