@@ -130,6 +130,7 @@ module.exports = {
                     user
                 });
             } else {
+                wikiQueries.changePrivacy(user);
                 userQueries.changeRole(user);
                 req.flash("notice", "You've been downgraded to Standard!");
                 res.redirect("/");

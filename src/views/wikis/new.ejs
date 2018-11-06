@@ -8,6 +8,8 @@
 
         <main class="container">
 
+            <% include ../static/partials/messages.ejs %>
+
             <h1>New Wiki</h1>
 
             <form action="/wikis/create" method="post">
@@ -19,6 +21,12 @@
                     <label for="body">Body</label>
                     <textarea rows="4" class="form-control" name="body" placeholder="Enter Body Text"></textarea>
                 </div>
+                <% if(currentUser.isPremium() || currentUser.isAdmin()) { %>
+                    <div class="form-group">
+                        <label for="private">Make wiki private</label>
+                        <input type="checkbox" class="form-control" name="private">
+                    </div>
+                <% } %>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
 
