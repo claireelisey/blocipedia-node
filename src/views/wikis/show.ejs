@@ -18,6 +18,14 @@
 
             <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit</a>
 
+            <% if(wiki.private) { %>
+                <% if(currentUser) { %>
+                    <% if(currentUser.isPremium() || currentUser.isAdmin()) { %>
+                        <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit Collaborators</a>
+                    <% } %>
+                <% } %>
+            <% } %>
+
             <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>

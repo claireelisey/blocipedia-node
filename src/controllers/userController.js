@@ -69,7 +69,7 @@ module.exports = {
         });
     },
 
-    displayUpgradePage(req, res, next){
+    /* displayUpgradePage(req, res, next){
         userQueries.getUser(req.params.id, (err, user) => {
             if(err || user === undefined){
                 req.flash("notice", "No user found with that ID.");
@@ -134,6 +134,55 @@ module.exports = {
                 userQueries.changeRole(user);
                 req.flash("notice", "You've been downgraded to Standard!");
                 res.redirect("/");
+            }
+        });
+    }, */
+
+    upgrade(req, res, next) {
+        res.render('users/upgrade', {
+            publicKey
+        });
+    },
+
+    payment(req, res, next) {
+        stripe.customers
+            .create({
+                email: req.body.stripeEmail,
+                source: req.body.stripeToken,
+            })
+            .then(customer => {
+                stripe.charges.create({
+                    amount: 1500,
+                    description: 'Blocipedia Premium Membership Test Fee',
+                    currency: 'USD',
+                    customer: customer.id,
+                });
+            })
+            .then(charge => {
+                userQueries.upgrade(req.user.dataValues.id);
+                res.redirect('/');
+            });
+    },
+
+    downgrade(req, res, next) {
+        userQueries.downgrade(req.user.dataValues.id);
+        wikiQueries.makePublic(req.user.dataValues.id); 
+        req.flash('notice', 'You are no longer a premium user and your private wikis are now public.');
+        res.redirect('/');
+    },
+
+    showCollaborations(req, res, next) {
+        console.log(req.user.id);
+        userQueries.getUser(req.user.id, (err, result) => {
+            user = result["user"];
+            collaborations = result["collaborations"];
+            if (err || user == null) {
+                res.redirect(404, "/");
+            } else {
+                res.render("users/collaborations", {
+                    user,
+                    collaborations
+                });
             }
         });
     }
