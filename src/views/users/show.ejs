@@ -13,21 +13,34 @@
 
             <% include ../static/partials/messages.ejs %>
 
-            <h1><%= `${user.username}'s profile` %></h1>
+            <h1><%= `Hello ${currentUser.username}!` %></h1>
 
-            <h3>Your account status is:
-                <%= user.role %>
-            </h3>
+            <h4>Your account status is:
+                <%= currentUser.role %>
+            </h4>
 
-            <!-- If currentUser == "standard" -->
-            <% if(currentUser && currentUser.isStandard()) { %>
-            <a href="/users/<%= user.id %>/upgrade" class="btn btn-warning">Upgrade to Premium</a>
-            <% } %>
+            <hr>
 
-            <!-- If currentUser == "premium" -->
-            <% if(currentUser && currentUser.isPremium()) { %>
-            <a href="/users/<%= user.id %>/downgrade" class="btn btn-warning">Downgrade to Standard</a>
-            <% } %>
+            <% if(currentUser && currentUser.role == "standard") { %>
+            
+                <h5>Upgrade to Premium</h5>
+                <p>Create private wikis and collaborate with other premium members.<p>
+                <form action="/users/<%=currentUser.id%>/upgrade" method="POST">
+                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="pk_test_QA28K2pkhJ0KQnGljF5tsKD2"
+                        data-amount="1500" data-name="Blocipedia" data-description="Example Premium Membership Charge" data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-locale="auto">
+                    </script>
+                </form>
+
+            <% } else { %>
+                <% if(currentUser.role == "premium"); { %>
+                    <h5>Downgrade</h5>
+                    <p>Please note that all of your private Wikis will become public.</p>
+                    <form action="/users/<%=currentUser.id%>/downgrade" method="POST">
+                        <button type="submit" class="btn btn-danger">Downgrade your membership</button>
+                    </form>
+                <% } %>
+        <% } %>
             
         </main>
 

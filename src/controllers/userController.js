@@ -46,7 +46,7 @@ module.exports = {
                 res.redirect("/users/signin");
             } else {
                 req.flash("notice", "You've successfully signed in!");
-                res.redirect("/")
+                res.redirect("/");
             }
         })
     },
@@ -69,75 +69,6 @@ module.exports = {
         });
     },
 
-    /* displayUpgradePage(req, res, next){
-        userQueries.getUser(req.params.id, (err, user) => {
-            if(err || user === undefined){
-                req.flash("notice", "No user found with that ID.");
-                res.render("/");
-            } else {
-                res.render("users/upgrade", {user});
-            }
-        });
-    },
-
-    upgrade(req, res, next){
-        const token = req.body.stripeToken;
-        const email = req.body.stripeEmail;
-        User.findOne({
-            where: {email: email}
-        })
-        .then((user) => {
-            if(user){
-                const charge = stripe.charges.create({
-                    amount: 1500,
-                    currency: 'usd',
-                    description: 'Upgrade to premium',
-                    source: token,
-                })
-                .then((result) => {
-                    if(result){
-                        userQueries.changeRole(user);
-                        req.flash("notice", "You've been upgraded to Premium!");
-                        res.redirect("/wikis");
-                    } else {
-                        req.flash("notice", "Upgrade unsuccessful.");
-                        res.redirect("users/show", {user});
-                    }
-                })
-            } else {
-                req.flash("notice", "Upgrade unsuccessful.");
-                res.redirect("users/upgrade");
-            }
-        })
-    },
-
-    displayDowngradePage(req, res, next){
-        userQueries.getUser(req.params.id, (err, user) => {
-            if(err || user === undefined){
-                req.flash("notice", "No user found with that ID.");
-                res.redirect("/");
-            } else {
-                res.render("users/downgrade", {user});
-            }
-        });
-    },
-
-    downgrade(req, res, next) {
-        userQueries.getUser(req.params.id, (err, user) => {
-            if (err || user === undefined) {
-                req.flash("notice", "Downgrade unsuccessful.");
-                res.redirect("users/show", {
-                    user
-                });
-            } else {
-                wikiQueries.changePrivacy(user);
-                userQueries.changeRole(user);
-                req.flash("notice", "You've been downgraded to Standard!");
-                res.redirect("/");
-            }
-        });
-    }, */
-
     upgrade(req, res, next) {
         res.render('users/upgrade', {
             publicKey
@@ -153,7 +84,7 @@ module.exports = {
             .then(customer => {
                 stripe.charges.create({
                     amount: 1500,
-                    description: 'Blocipedia Premium Membership Test Fee',
+                    description: 'Blocipedia Premium Membership',
                     currency: 'USD',
                     customer: customer.id,
                 });

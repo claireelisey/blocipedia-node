@@ -11,7 +11,7 @@ const ApplicationPolicy = require("./application");
     }
 
     edit() {
-        return (this._isAdmin() || this._isPremium() || this._isStandard());
+        return this._isAdmin() || this._isOwner() || this._isPublic();
     }
 
     update() {
@@ -20,6 +20,14 @@ const ApplicationPolicy = require("./application");
 
     destroy() {
         return this.update();
+    }
+
+    private() {
+        return this._isPremium() || this._isAdmin();
+    }
+    
+    public() {
+        return this.private();
     }
     
 }

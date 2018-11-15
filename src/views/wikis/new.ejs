@@ -21,12 +21,18 @@
                     <label for="body">Body</label>
                     <textarea rows="4" class="form-control" name="body" placeholder="Enter Body Text"></textarea>
                 </div>
-                <% if(currentUser.isPremium() || currentUser.isAdmin()) { %>
+                
+                <% if(currentUser && (currentUser.role === "admin" || currentUser.role === "premium")) { %>
+                    <p>Public or Private Wiki?</p>
                     <div class="form-group">
-                        <label for="private">Make wiki private</label>
-                        <input type="checkbox" class="form-control" name="private">
+                        <label for="private">Wiki Status</label>
+                        <select class="form-control" name="private">
+                            <option value="false">Public</option>
+                            <option value="true">Private</option>
+                        </select>
                     </div>
                 <% } %>
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
 

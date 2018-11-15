@@ -43,6 +43,7 @@ module.exports = {
                 private: req.body.private,
                 userId: req.user.id
             };
+            console.log(JSON.stringify(newWiki));
             wikiQueries.addWiki(newWiki, (err, wiki) => {
                 if(err){
                     res.redirect(500, "/wikis/new");
@@ -57,7 +58,7 @@ module.exports = {
     },
 
     show(req, res, next){
-        wikiQueries.getWiki(req.params.id, (err, wiki) => {
+        wikiQueries.getWikis(req.params.id, (err, wiki) => {
             if(err || wiki == null){
                 res.redirect(404, "/");
             } else {
@@ -71,15 +72,15 @@ module.exports = {
     destroy(req, res, next){
         wikiQueries.deleteWiki(req, (err, wiki) => {
             if(err){
-                res.redirect(500, `/wikis/${req.params.id}`)
+                res.redirect(500, `/wikis/${req.params.id}`);
             } else {
-                res.redirect(303, "/wikis")
+                res.redirect(303, "/wikis");
             }
         });
     },
 
     edit(req, res, next){
-        wikiQueries.getWiki(req.params.id, (err, wiki) => {
+        wikiQueries.getWikis(req.params.id, (err, wiki) => {
             if(err || wiki == null){
                 res.redirect(404, "/");
             } else {
@@ -103,6 +104,18 @@ module.exports = {
                 res.redirect(`/wikis/${req.params.id}`);
             }
         });
+    },
+
+    private(req, res, next) {
+        wikiQueries.getAllWikis((err, wikis) => {
+            if (err) {
+                res.redirect(500, "static/index");
+            } else {
+                wiki.title = markdown.toHTML(wiki.title);
+                wiki.body = markdown.toHTML(wiki.body);
+                res.render("wikis/private", {wikis});
+            }
+        })
     }
 
 }

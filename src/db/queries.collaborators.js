@@ -5,7 +5,7 @@ const Authorizer = require("../policies/application");
 
 module.exports = {
 
-    addCollaborator(req, callback) {
+    createCollaborator(req, callback) {
 
         if (req.user.username == req.body.collaborator){
             return callback("You cannot add yourself as a collaborator.");

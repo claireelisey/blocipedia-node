@@ -4,6 +4,7 @@ const wikiController = require("../controllers/wikiController")
 
 
 router.get("/wikis", wikiController.index);
+router.get("/wikis/private", wikiController.private);
 
 router.get("/wikis/new", wikiController.new);
 router.post("/wikis/create", wikiController.create);

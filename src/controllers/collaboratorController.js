@@ -22,16 +22,16 @@ module.exports = {
                     });
                 } else {
                     req.flash("notice", "You are not authorized to do that!");
-                    res.redirect(`/wikis/${req.params.wikiId}`)
+                    res.redirect(`/wikis/${req.params.wikiId}`);
                 }
             }
         });
     },
 
     create(req, res, next){
-        collaboratorQueries.addCollaborator(req, (err, collaborator) => {
+        collaboratorQueries.createCollaborator(req, (err, collaborator) => {
             if (err) {
-                req.flash("notice", "User already exists.")
+                req.flash("notice", "User already exists.");
             }
             res.redirect(`/wikis/${req.params.wikiId}/collaborators`);
         });
@@ -41,7 +41,7 @@ module.exports = {
         if (req.user) {
             collaboratorQueries.deleteCollaborator(req, (err, collaborator) => {
                 if (err) {
-                    req.flash("error", err)
+                    req.flash("error", err);
                 }
                 res.redirect(req.headers.referer);
             });
