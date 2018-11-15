@@ -7,7 +7,7 @@ const wikiQueries = require("../db/queries.wikis");
 module.exports = {
 
     show(req, res, next){
-        wikiQueries.getWikis(req.params.wikiId, (err, result) => {
+        wikiQueries.getWiki(req.params.wikiId, (err, result) => {
             wiki = result["wiki"];
             collaborators = result["collaborators"];
 

@@ -62,9 +62,10 @@ module.exports = {
             collaborators = result["collaborators"];
 
             if (err || result.wiki == null) {
+                console.log(err);
                 res.redirect(404, "/");
             } else {
-                wiki.body = markdown.toHTML(wiki.body);
+                wiki.title = markdown.toHTML(wiki.title);
                 wiki.body = markdown.toHTML(wiki.body);
                 res.render("wikis/show", {
                     wiki
@@ -120,10 +121,12 @@ module.exports = {
     private(req, res, next) {
         wikiQueries.getAllWikis((err, wikis) => {
             if (err) {
+                console.log(err);
                 res.redirect(500, "static/index");
             } else {
-                wiki.title = markdown.toHTML(wiki.title);
-                wiki.body = markdown.toHTML(wiki.body);
+                wikis.forEach((wiki) => {
+                    wiki.title = markdown.toHTML(wiki.title);
+                })
                 res.render("wikis/private", {wikis});
             }
         })
