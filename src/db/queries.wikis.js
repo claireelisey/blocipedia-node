@@ -31,7 +31,7 @@ module.exports = {
         })
     },
 
-    getWikis(id, callback) {
+    getWiki(id, callback) {
         let result = {};
         Wiki.findById(id)
             .then((wiki) => {
