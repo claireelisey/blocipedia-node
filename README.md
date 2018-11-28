@@ -1,4 +1,4 @@
-####An application that allows users to create, collaborate, and share wikis.####
+#### An application that allows users to create, collaborate, and share wikis.
 
 Made with Express.js, Request, Node.js, PostgreSQL/sequelize/sequelize cli, ejs, & Bootstrap.
 
